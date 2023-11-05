@@ -1,15 +1,18 @@
 import streamlit as st
-import aws.streamlitapp.smjs as su
+import smjs as su
 
 st.title("M&E Workshop ChatApp")
 
 # Get user input
 user_prompt = st.chat_input("Your prompt")
 
+# Create a sidebar for sliders
+st.sidebar.title("Model Parameters")
+
 # Add sliders for temperature, top_p, and top_k
-temperature = st.slider("Temperature", min_value=0.1, max_value=2.0, value=0.2, step=0.1)
-top_p = st.slider("Top-p", min_value=0.1, max_value=1.0, value=0.7, step=0.1)
-max_new_tokens = st.slider("Max New Tokens", min_value=50, max_value=1000, value=500, step=50)
+temperature = st.sidebar.slider("Temperature", min_value=0.1, max_value=2.0, value=0.2, step=0.1)
+top_p = st.sidebar.slider("Top-p", min_value=0.1, max_value=1.0, value=0.7, step=0.1)
+max_new_tokens = st.sidebar.slider("Max New Tokens", min_value=50, max_value=1000, value=500, step=50)
 #top_k = st.slider("Top-k", min_value=1, max_value=100, value=50, step=1)
 
 if user_prompt:
