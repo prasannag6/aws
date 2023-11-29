@@ -1,7 +1,8 @@
 import streamlit as st
 import smjs as su
+import difflib
 
-st.title("M&E Workshop ChatApp")
+st.markdown("<h1 style='font-size:1.5em;'>GenAI Common Labs - Falcon model</h1>", unsafe_allow_html=True)
 
 # Get user input
 user_prompt = st.chat_input("Your prompt")
@@ -23,10 +24,15 @@ if user_prompt:
     response = su.generate_response(user_prompt, temperature, top_p, max_new_tokens)
     
     if response:
-        # Extract the text after '\n' for the first 'generated_text' in the response
-        extracted_text = response[0]['generated_text'].split('\n', 1)[1]
+        # Get generated text 
+        generated_text = response[0]['generated_text']  
+        
+        # Compare and remove user prompt
+        match = difflib.SequenceMatcher(None, user_prompt, generated_text).find_longest_match(0, len(user_prompt), 0, len(generated_text))
+        model_response = generated_text[match.size:] 
         
         st.markdown("Model Response:")
-        st.write(extracted_text)  # Display model response
+        st.write(model_response) 
+        
     else:
-        st.warning("No model response found.")
+        st.warning("No response")
