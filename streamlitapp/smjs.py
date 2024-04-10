@@ -1,6 +1,6 @@
 import boto3, json
 #import constants as const
-region_name = 'us-east-1'
+region_name = "<aws-region>"
 # endpoint_name = const.smjs_endpoint
 endpoint_name = "<Endpoint-name>"
 
